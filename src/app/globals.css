@@ -1,1 +1,209 @@
 @import "tailwindcss";
+
+:root {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --bg-elevated: #292e36;
+  --border: #30363d;
+  --border-focus: #58a6ff;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+  --accent-blue: #58a6ff;
+  --accent-green: #3fb950;
+  --accent-yellow: #d29922;
+  --accent-red: #f85149;
+  --accent-purple: #a371f7;
+  --accent-cyan: #39c5cf;
+  
+  --font-sans: var(--font-ibm-plex), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), "Fira Code", "JetBrains Mono", monospace;
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border);
+}
+
+::selection {
+  background: var(--accent-blue);
+  color: var(--bg-primary);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, textarea {
+  font-family: inherit;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: all 150ms ease;
+}
+
+.btn-primary {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-success {
+  background: var(--accent-green);
+  color: white;
+}
+
+.btn-success:hover {
+  filter: brightness(1.1);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.btn-icon {
+  padding: 6px;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.input {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 150ms ease;
+}
+
+.input:focus {
+  border-color: var(--accent-blue);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.badge-blue {
+  background: rgba(88, 166, 255, 0.15);
+  color: var(--accent-blue);
+}
+
+.badge-green {
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--accent-green);
+}
+
+.badge-yellow {
+  background: rgba(210, 153, 34, 0.15);
+  color: var(--accent-yellow);
+}
+
+.badge-red {
+  background: rgba(248, 81, 73, 0.15);
+  color: var(--accent-red);
+}
+
+.badge-purple {
+  background: rgba(163, 113, 247, 0.15);
+  color: var(--accent-purple);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 200ms ease;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
