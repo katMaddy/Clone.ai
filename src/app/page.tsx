@@ -211,13 +211,13 @@ const agentsList: Agent[] = [
 ];
 
 const fileIcons: Record<string, string> = {
-  javascript: "🟨",
-  typescript: "🔷",
-  python: "🐍",
-  html: "🌐",
-  css: "🎨",
-  json: "📋",
-  markdown: "📝",
+  javascript: "JS",
+  typescript: "TS",
+  python: "PY",
+  html: "HTML",
+  css: "CSS",
+  json: "JSON",
+  markdown: "MD",
   folder: "📁",
 };
 
@@ -560,7 +560,7 @@ export default function Duplit() {
       <header className="top-bar glass-panel">
         <div className="top-bar-left">
           <button className="icon-btn menu-btn" title="Menu">
-            <span>☰</span>
+            <span>≡</span>
           </button>
           <div className="logo">
             <span className="logo-icon">◈</span>
