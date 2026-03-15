@@ -1,189 +1,204 @@
-# DevForge - AI-Powered Code Workspace
+# Duplit - The Ultimate AI-Powered Development OS
 
 ## Project Overview
 
-**Project Name:** DevForge  
-**Type:** Web Application (Next.js)  
-**Core Functionality:** A unified development environment combining a powerful code editor (Monaco), AI assistant for code help, and task/project management - inspired by Replit, Taskade, and Kilo.  
-**Target Users:** Developers seeking an all-in-one coding workspace with AI assistance.
+**Project Name:** Duplit  
+**Type:** Web Application (Next.js) - AI Development Operating System  
+**Core Functionality:** A futuristic, glassmorphic AI-powered development environment that combines the best of Replit, GitHub, Kilo, Taskade, and Loveable. Features AI agents that automate everything, works online/offline, and provides zero-code experience.  
+**Target Users:** Zero-code users, developers, and anyone who wants to build applications without touching code.
 
 ---
 
-## UI/UX Specification
+## Visual Design - Sci-Fi Glassmorphism OS
 
-### Layout Structure
+### Color Palette
 
-**Main Layout (3-panel design):**
-- **Left Sidebar** (280px): File explorer + Task list (collapsible)
-- **Main Content** (flexible): Monaco code editor
-- **Right Panel** (360px, collapsible): AI Assistant chat
+**Base Colors (Dark Sci-Fi):**
+- Background Deep: `#0a0a0f`
+- Background Mid: `#12121a`
+- Glass Primary: `rgba(255, 255, 255, 0.06)`
+- Glass Secondary: `rgba(255, 255, 255, 0.1)`
+- Glass Tertiary: `rgba(255, 255, 255, 0.15)`
+- Glass Border: `rgba(255, 255, 255, 0.12)`
 
-**Header:** 48px height with project name, run button, settings
+**Accent Colors (Neon/Cyberpunk):**
+- Cyan Neon: `#00f0ff`
+- Magenta Neon: `#ff00aa`
+- Purple Neon: `#8b5cf6`
+- Green Neon: `#10b981`
+- Yellow Neon: `#fbbf24`
+- Orange Neon: `#f97316`
 
-**Responsive Breakpoints:**
-- Desktop: Full 3-panel layout
-- Tablet (< 1024px): Collapsible sidebars with toggle buttons
-- Mobile (< 768px): Single panel view with bottom navigation
+**Text Colors:**
+- Text Primary: `rgba(255, 255, 255, 0.95)`
+- Text Secondary: `rgba(255, 255, 255, 0.7)`
+- Text Muted: `rgba(255, 255, 255, 0.5)`
+- Text Cyan: `#00f0ff`
 
-### Visual Design
+### Glassmorphism Effects
 
-**Color Palette (Dark Theme - IDE aesthetic):**
-- Background Primary: `#0d1117` (deep dark)
-- Background Secondary: `#161b22` (panels)
-- Background Tertiary: `#21262d` (elevated elements)
-- Border: `#30363d`
-- Text Primary: `#e6edf3`
-- Text Secondary: `#8b949e`
-- Accent Primary: `#58a6ff` (blue - links, focus)
-- Accent Success: `#3fb950` (green - run, success)
-- Accent Warning: `#d29922` (yellow)
-- Accent Danger: `#f85149` (red - errors)
-- AI Accent: `#a371f7` (purple - AI elements)
+1. **Panels:** `backdrop-filter: blur(24px); background: rgba(255,255,255,0.08);`
+2. **Cards:** Gradient overlays with shimmer animation
+3. **Borders:** 1px solid with gradient glow
+4. **Shadows:** Multi-layer colored glows
 
-**Typography:**
-- Font Family (UI): `"IBM Plex Sans", system-ui, sans-serif`
-- Font Family (Code): `"JetBrains Mono", "Fira Code", monospace`
-- Heading (H1): 24px, weight 600
-- Heading (H2): 18px, weight 600
-- Body: 14px, weight 400
-- Code: 13px
-- Small/Labels: 12px
+### Animated Background
 
-**Spacing System:**
-- Base unit: 4px
-- xs: 4px, sm: 8px, md: 12px, lg: 16px, xl: 24px, 2xl: 32px
+- Floating holographic orbs (cyan, magenta, purple)
+- Particle field (subtle dots)
+- Grid pattern (very subtle)
+- Scanline effect (optional)
+- Smooth transitions between colors
 
-**Visual Effects:**
-- Panel shadows: `0 8px 24px rgba(0,0,0,0.4)`
-- Hover transitions: 150ms ease
-- Button hover: brightness increase + subtle scale
-- Focus rings: 2px solid accent with 2px offset
-- Scrollbars: Custom styled, thin (8px), matching theme
+### Shiny Cards
 
-### Components
-
-**1. Header Bar**
-- Logo/Project name (left)
-- Run button (green, with keyboard shortcut hint Ctrl+Enter)
-- Language selector dropdown
-- Settings gear icon
-- User avatar (right)
-
-**2. Left Sidebar (Tabbed)**
-- Tab 1: Files
-  - File tree with folders/files
-  - Add file/folder buttons
-  - File icons based on extension
-- Tab 2: Tasks
-  - Task list with checkboxes
-  - Add task input
-  - Priority indicators (colored dots)
-  - Due date display
-
-**3. Code Editor (Monaco)**
-- VS Code dark theme
-- Line numbers
-- Minimap (right side)
-- Tab bar for open files
-- Status bar (bottom): Line/Column, Language, Encoding
-
-**4. AI Assistant Panel**
-- Chat header with "Ask DevForge AI" title
-- Message bubbles (user vs AI differentiated)
-- Code block syntax highlighting
-- Input field with send button
-- Suggested prompts below input
-
-**5. Context Menus & Modals**
-- Right-click file context menu
-- Settings modal
-- Keyboard shortcuts help modal
+- Diagonal gradient overlay
+- Animated light sweep effect
+- Reflection on hover
+- Glow intensifies on interaction
 
 ---
 
-## Functionality Specification
+## Layout Structure
 
-### Core Features
+### Responsive Breakpoints
 
-**1. Code Editor**
-- Monaco Editor integration
-- Multi-file support with tabs
-- Syntax highlighting for: JavaScript, TypeScript, Python, HTML, CSS, JSON, Markdown
-- Auto-completion
-- Error highlighting
-- Find/Replace (Ctrl+F, Ctrl+H)
-- Multiple cursor support
-- Code folding
+| Breakpoint | Width | Layout |
+|------------|-------|--------|
+| Ultra | >1920px | Full 4-panel + dock |
+| Desktop | 1200-1920px | 3-panel + dock |
+| Tablet | 768-1199px | 2-panel, collapsible |
+| Mobile | <768px | Single panel + bottom nav |
 
-**2. File System (In-Memory)**
-- Create new files/folders
-- Rename files
-- Delete files
-- File tree navigation
-- Persist to localStorage
+### OS Detection Features
 
-**3. Task Management**
-- Create tasks with title
-- Mark complete/incomplete
-- Delete tasks
-- Priority levels: Low (gray), Medium (yellow), High (red)
-- Filter: All, Active, Completed
-- Persist to localStorage
+- Detect OS (Windows, macOS, Linux, iOS, Android)
+- Adjust UI for touch vs mouse
+- Show OS-appropriate keyboard shortcuts
+- Adaptive panel positions
 
-**4. AI Assistant**
-- Send messages to AI
-- Receive code explanations
-- Get code suggestions
-- Clear chat history
-- Simulated AI responses (for demo)
+### Main Layout Areas
 
-**5. Run Code**
-- Execute JavaScript in sandbox
-- Display output in console panel
-- Show errors
+1. **Top Bar** (48px): Menu, search, user
+2. **Left Sidebar** (280px): Files, Tasks, GitHub, Extensions
+3. **Main Area**: Editor + Console + Chat
+4. **Right Panel** (360px): AI Assistant / GitHub
+5. **Bottom Dock** (64px): App launcher
+6. **Chat Overlay**: Above dock, Replit-style
 
-### User Interactions
+---
 
-- Click file to open in editor
-- Double-click folder to expand/collapse
-- Drag files (visual only for now)
-- Click task checkbox to toggle
-- Type in AI input and press Enter or click Send
-- Keyboard shortcuts displayed in tooltips
+## Core Features (Lego Blocks)
 
-### Data Handling
+### 1. Code Editor Module
+- Monaco Editor with custom themes
+- Multi-file tabs
+- Syntax highlighting (all languages)
+- Auto-complete
+- Error detection
+- Code formatting
 
-- All data persisted to localStorage
-- Structure:
-  ```json
-  {
-    "devforge_files": [...],
-    "devforge_tasks": [...],
-    "devforge_chat": [...],
-    "devforge_settings": {...}
-  }
-  ```
+### 2. File System Module
+- Virtual file tree
+- Create/rename/delete files
+- Drag & drop (visual)
+- File icons by type
 
-### Edge Cases
+### 3. Task Manager Module
+- Create tasks
+- Set priorities (Low/Medium/High)
+- Due dates
+- Kanban view
+- AI task generation
 
-- Empty file tree: Show "No files yet" placeholder
-- Empty task list: Show "No tasks yet" placeholder
-- Long file names: Truncate with ellipsis
-- Large code files: Monaco handles efficiently
-- Network offline: AI shows offline message
-- Invalid code execution: Catch errors, display in console
+### 4. GitHub Integration Module
+- Clone repos (simulated)
+- View files
+- Commit history
+- Branch selector
+- Issues view
+
+### 5. AI Agent Module
+- Code generation
+- Bug fixing
+- Code explanation
+- Optimization suggestions
+- Natural language commands
+
+### 6. Chat Interface Module
+- Replit-style chat
+- Code execution results
+- Collaboration indicators
+- Voice-ready UI
+
+### 7. Extensions Module
+- Extension marketplace UI
+- Installed extensions
+- Enable/disable toggles
+
+### 8. Settings Module
+- Theme selection
+- Keybindings
+- AI preferences
+- Account settings
+- Integrations management
+
+---
+
+## AI Agents System
+
+### Agent Types
+
+1. **Code Agent**: Generates, fixes, optimizes code
+2. **Task Agent**: Creates and manages tasks
+3. **GitHub Agent**: Handles Git operations
+4. **Design Agent**: Suggests UI improvements
+5. **Research Agent**: Finds solutions
+
+### Automation Features
+
+- Auto-detect user intent
+- Suggest next actions
+- One-click integrations
+- Background processing
+- Progress notifications
+
+---
+
+## Integration System
+
+### Connect Services (One-Click)
+
+- GitHub
+- GitLab
+- Vercel
+- Netlify
+- OpenAI
+- Anthropic
+- Local LLM (Ollama)
+
+### OAuth Flow (Simulated)
+
+1. User clicks "Connect GitHub"
+2. Modal shows "Authorize Duplit"
+3. User clicks "Allow"
+4. AI agent auto-configures
+5. Ready to use
 
 ---
 
 ## Acceptance Criteria
 
-1. ✅ Three-panel layout renders correctly
-2. ✅ Monaco editor loads with syntax highlighting
-3. ✅ Files can be created, renamed, deleted in file tree
-4. ✅ Tasks can be added, checked, deleted
-5. ✅ AI panel accepts input and shows responses
-6. ✅ Run button executes JavaScript code
-7. ✅ All data persists across page refresh
-8. ✅ Responsive layout works on smaller screens
-9. ✅ Keyboard shortcuts function (Ctrl+S, Ctrl+F, etc.)
-10. ✅ No console errors on load
+1. ✅ Glassmorphism UI with blur effects
+2. ✅ Animated background with floating orbs
+3. ✅ Shiny cards with light sweep animation
+4. ✅ Auto-detect OS and adjust UI
+5. ✅ Auto-detect screen size, responsive layout
+6. ✅ Top menu bar with hamburger
+7. ✅ Bottom dock (macOS style)
+8. ✅ Chat box above dock
+9. ✅ All lego block modules present
+10. ✅ AI agents panel with automation suggestions
+11. ✅ Integration connection UI (one-click)
+12. ✅ Works offline (localStorage)
+13. ✅ No console errors

@@ -15,8 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DevForge - AI-Powered Code Workspace",
-  description: "A unified development environment with code editor, AI assistant, and task management",
+  title: "Duplit - AI Development OS",
+  description: "The ultimate AI-powered development operating system. Build anything with AI agents, GitHub integration, and zero-code simplicity.",
 };
 
 export default function RootLayout({
