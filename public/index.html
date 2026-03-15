@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maddy AI - Build Anything with AI</title>
+  <title>Maddy AI OS - Build Anything</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
     :root {
       --bg-deep: #0a0e1a;
       --bg-primary: #0f1522;
@@ -45,1317 +41,258 @@
       --radius-xl: 24px;
     }
 
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--bg-deep);
-      color: var(--text-primary);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* Scrollbar */
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-primary); font-size: 14px; line-height: 1.5; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
 
     /* Layout */
-    .app {
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
+    .app { display: flex; height: 100vh; overflow: hidden; }
 
     /* Left Icon Nav */
     .icon-nav {
-      width: 52px;
-      min-width: 52px;
-      background: var(--bg-primary);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 12px 0;
-      gap: 4px;
+      width: 60px; min-width: 60px; background: var(--bg-primary); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 8px;
     }
-
     .nav-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      position: relative;
+      width: 44px; height: 44px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary); cursor: pointer; transition: all 0.15s ease; position: relative;
     }
-
-    .nav-icon:hover {
-      background: var(--bg-hover);
-      color: var(--text-primary);
+    .nav-icon:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .nav-icon.active { background: rgba(0, 212, 255, 0.1); color: var(--accent-cyan); }
+    .nav-icon svg { width: 22px; height: 22px; }
+    .nav-icon .badge {
+      position: absolute; top: 4px; right: 4px; min-width: 16px; height: 16px; background: var(--accent-purple);
+      border-radius: 8px; font-size: 9px; font-weight: 600; display: flex; align-items: center; justify-content: center;
     }
+    .nav-divider { width: 28px; height: 1px; background: var(--border); margin: 8px 0; }
+    .nav-bottom { margin-top: auto; }
+    .user-nav { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); }
 
-    .nav-icon.active {
-      background: var(--bg-tertiary);
-      color: var(--accent-cyan);
-    }
-
-    .nav-icon svg { width: 20px; height: 20px; }
-
-    .nav-divider {
-      width: 24px;
-      height: 1px;
-      background: var(--border);
-      margin: 8px 0;
-    }
-
-    .nav-bottom {
-      margin-top: auto;
-    }
-
-    /* Left Sidebar */
+    /* Sidebar */
     .sidebar {
-      width: 260px;
-      min-width: 260px;
-      background: var(--bg-primary);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+      width: 260px; min-width: 260px; background: var(--bg-primary); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; overflow: hidden;
     }
-
-    .sidebar-header {
-      padding: 16px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .sidebar-header { padding: 16px; border-bottom: 1px solid var(--border); }
     .workspace-switcher {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: all 0.15s ease;
+      display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-secondary);
+      border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s ease;
     }
-
-    .workspace-switcher:hover {
-      border-color: var(--border-light);
-      background: var(--bg-tertiary);
-    }
-
+    .workspace-switcher:hover { border-color: var(--border-light); background: var(--bg-tertiary); }
     .workspace-icon {
-      width: 28px;
-      height: 28px;
-      background: var(--gradient-main);
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
+      width: 36px; height: 36px; background: var(--gradient-main); border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;
     }
+    .workspace-info { flex: 1; }
+    .workspace-name { font-weight: 600; font-size: 14px; display: block; }
+    .workspace-plan { font-size: 11px; color: var(--accent-cyan); }
+    .workspace-arrow { color: var(--text-muted); font-size: 10px; }
 
-    .workspace-name {
-      flex: 1;
-      font-weight: 500;
-      font-size: 13px;
-    }
-
-    .workspace-arrow {
-      color: var(--text-muted);
-      font-size: 10px;
-    }
-
-    .sidebar-nav {
-      padding: 12px 8px;
-    }
-
+    .sidebar-nav { padding: 12px 8px; flex: 1; overflow-y: auto; }
     .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: var(--radius-md);
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      font-size: 13px;
+      display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--radius-md);
+      color: var(--text-secondary); cursor: pointer; transition: all 0.15s ease; font-size: 13px;
     }
-
-    .nav-item:hover {
-      background: var(--bg-hover);
-      color: var(--text-primary);
-    }
-
-    .nav-item.active {
-      background: rgba(0, 212, 255, 0.1);
-      color: var(--accent-cyan);
-    }
-
+    .nav-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .nav-item.active { background: rgba(0, 212, 255, 0.1); color: var(--accent-cyan); }
     .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-    .nav-item-badge {
-      margin-left: auto;
-      background: var(--accent-purple);
-      color: white;
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 10px;
-      font-weight: 600;
-    }
-
-    .sidebar-section-title {
-      padding: 16px 16px 8px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+    .nav-item-badge { margin-left: auto; background: var(--accent-purple); color: white; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+    .nav-section-title { padding: 20px 16px 8px; font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
     /* Main Content */
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      min-width: 0;
-    }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
 
     /* Top Bar */
     .top-bar {
-      height: 52px;
-      min-height: 52px;
-      background: var(--bg-primary);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
+      height: 56px; min-height: 56px; background: var(--bg-primary); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
     }
-
-    .breadcrumb {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-
+    .breadcrumb { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary); }
     .breadcrumb svg { width: 16px; height: 16px; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: 500; }
+    .top-bar-center { display: flex; align-items: center; gap: 8px; }
+    .top-tab { padding: 8px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all 0.15s ease; }
+    .top-tab:hover { color: var(--text-primary); background: var(--bg-hover); }
+    .top-tab.active { color: var(--text-primary); background: var(--bg-secondary); }
+    .top-bar-right { display: flex; align-items: center; gap: 12px; }
 
-    .breadcrumb-current {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .top-bar-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      border: none;
-      font-family: inherit;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-    }
-
-    .btn-ghost:hover {
-      background: var(--bg-hover);
-      color: var(--text-primary);
-    }
-
-    .btn-gradient {
-      background: var(--gradient-main);
-      color: white;
-    }
-
-    .btn-gradient:hover {
-      filter: brightness(1.1);
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-    }
-
-    .credits-pill {
-      background: var(--accent-purple);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .user-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--gradient-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-    }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s ease; border: none; font-family: inherit; }
+    .btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .btn-gradient { background: var(--gradient-main); color: white; }
+    .btn-gradient:hover { filter: brightness(1.1); box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+    .btn-green { background: var(--accent-green); color: white; }
+    .credits-pill { background: var(--accent-purple); color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .user-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--gradient-main); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; cursor: pointer; }
 
     /* Content Area */
-    .content {
-      flex: 1;
-      overflow: auto;
-      padding: 24px;
-    }
+    .content { flex: 1; overflow: auto; padding: 24px; }
 
-    /* HOME VIEW */
-    .home-view {
-      max-width: 1400px;
-      margin: 0 auto;
+    /* Welcome / Empty State */
+    .welcome-hero {
+      text-align: center; padding: 60px 20px; animation: fadeSlideUp 0.6s ease;
     }
-
-    .hero {
-      text-align: center;
-      padding: 40px 0 60px;
-      animation: fadeSlideUp 0.6s ease;
-    }
-
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .announcement-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      color: var(--accent-cyan);
-      margin-bottom: 20px;
-      backdrop-filter: var(--glass-blur);
+      display: inline-flex; align-items: center; gap: 8px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+      padding: 8px 16px; border-radius: 20px; font-size: 12px; color: var(--accent-cyan); margin-bottom: 24px; backdrop-filter: var(--glass-blur);
     }
+    .announcement-dot { width: 6px; height: 6px; background: var(--accent-cyan); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .hero-title { font-family: var(--font-heading); font-size: 48px; font-weight: 800; line-height: 1.15; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px; }
+    .hero-subtitle { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px; }
 
-    .announcement-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--accent-cyan);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    .hero-title {
-      font-family: var(--font-heading);
-      font-size: 56px;
-      font-weight: 800;
-      line-height: 1.1;
-      background: var(--gradient-text);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 16px;
-    }
-
-    .hero-subtitle {
-      font-size: 18px;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 32px;
-    }
-
-    /* Input Box */
-    .input-container {
-      max-width: 800px;
-      margin: 0 auto 40px;
-      animation: fadeSlideUp 0.6s ease 0.1s both;
-    }
-
+    .input-container { max-width: 800px; margin: 0 auto 40px; }
     .main-input-wrapper {
-      background: var(--bg-secondary);
-      border: 2px solid transparent;
-      border-radius: var(--radius-lg);
-      padding: 4px;
-      position: relative;
-      background-image: linear-gradient(var(--bg-secondary), var(--bg-secondary)), var(--gradient-main);
-      background-origin: border-box;
-      background-clip: padding-box, border-box;
+      background: var(--bg-secondary); border: 2px solid transparent; border-radius: var(--radius-lg); padding: 4px;
+      position: relative; background-image: linear-gradient(var(--bg-secondary), var(--bg-secondary)), var(--gradient-main);
+      background-origin: border-box; background-clip: padding-box, border-box;
     }
-
     .main-input {
-      width: 100%;
-      background: var(--bg-secondary);
-      border: none;
-      border-radius: var(--radius-md);
-      padding: 16px 120px 16px 48px;
-      font-size: 16px;
-      color: var(--text-primary);
-      outline: none;
-      font-family: inherit;
+      width: 100%; background: var(--bg-secondary); border: none; border-radius: var(--radius-md);
+      padding: 18px 130px 18px 52px; font-size: 16px; color: var(--text-primary); outline: none; font-family: inherit;
     }
-
-    .main-input::placeholder {
-      color: var(--text-muted);
-    }
-
-    .input-icon {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-    }
-
-    .input-actions {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
+    .main-input::placeholder { color: var(--text-muted); }
+    .input-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .input-actions { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 4px; }
     .input-action-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      background: transparent;
-      border: none;
+      width: 38px; height: 38px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary); cursor: pointer; transition: all 0.15s ease; background: transparent; border: none;
     }
-
-    .input-action-btn:hover {
-      background: var(--bg-hover);
-      color: var(--text-primary);
-    }
-
-    .input-action-btn.send {
-      background: var(--gradient-main);
-      color: white;
-    }
-
-    .input-action-btn.send:hover {
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-    }
+    .input-action-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .input-action-btn.send { background: var(--gradient-main); color: white; }
+    .input-action-btn.send:hover { box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
 
     /* Quick Actions */
-    .quick-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 48px;
-      animation: fadeSlideUp 0.6s ease 0.2s both;
-    }
-
+    .quick-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 48px; }
     .quick-action-chip {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      backdrop-filter: var(--glass-blur);
+      display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+      border-radius: 24px; font-size: 13px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s ease; backdrop-filter: var(--glass-blur);
     }
-
-    .quick-action-chip:hover {
-      background: var(--bg-tertiary);
-      border-color: var(--accent-cyan);
-      color: var(--text-primary);
-      transform: translateY(-2px);
-    }
+    .quick-action-chip:hover { background: var(--bg-tertiary); border-color: var(--accent-cyan); color: var(--text-primary); transform: translateY(-2px); }
 
     /* Integrations */
-    .integrations {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 48px;
-      animation: fadeSlideUp 0.6s ease 0.3s both;
-    }
-
+    .integrations { display: flex; justify-content: center; gap: 16px; margin-bottom: 48px; }
     .integration-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      width: 48px; height: 48px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
     }
+    .integration-icon:hover { transform: translateY(-4px); border-color: var(--accent-cyan); box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2); }
 
-    .integration-icon:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-cyan);
-      box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+    /* Feature Grid */
+    .features-section { margin-bottom: 48px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .section-title { font-family: var(--font-heading); font-size: 20px; font-weight: 700; }
+    .see-all { color: var(--accent-cyan); font-size: 13px; cursor: pointer; }
+    .see-all:hover { text-decoration: underline; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .feature-card {
+      background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px;
+      cursor: pointer; transition: all 0.2s ease;
     }
+    .feature-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); }
+    .feature-icon { width: 48px; height: 48px; background: var(--gradient-main); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+    .feature-title { font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+    .feature-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
 
-    /* Category Tabs */
-    .category-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border);
-      animation: fadeSlideUp 0.6s ease 0.4s both;
+    /* Projects Grid */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .project-card {
+      background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+      cursor: pointer; transition: all 0.2s ease;
     }
-
-    .category-tab {
-      padding: 10px 20px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      background: transparent;
-      border: none;
-    }
-
-    .category-tab:hover {
-      background: var(--bg-hover);
-      color: var(--text-primary);
-    }
-
-    .category-tab.active {
-      background: var(--accent-purple);
-      color: white;
-    }
-
-    /* App Grid */
-    .app-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .app-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      animation: fadeSlideUp 0.4s ease both;
-    }
-
-    .app-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-cyan);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .app-thumbnail {
-      height: 120px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .app-thumbnail-gradient {
-      position: absolute;
-      inset: 0;
-      opacity: 0.8;
-    }
-
-    .app-mac-chrome {
-      height: 24px;
-      background: var(--bg-tertiary);
-      display: flex;
-      align-items: center;
-      padding: 0 8px;
-      gap: 6px;
-    }
-
-    .mac-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
+    .project-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); }
+    .project-thumb { height: 100px; position: relative; overflow: hidden; }
+    .project-gradient { position: absolute; inset: 0; opacity: 0.7; }
+    .project-mac { height: 20px; background: var(--bg-tertiary); display: flex; align-items: center; padding: 0 8px; gap: 6px; }
+    .mac-dot { width: 8px; height: 8px; border-radius: 50%; }
     .mac-dot.red { background: #ff5f56; }
     .mac-dot.yellow { background: #ffbd2e; }
     .mac-dot.green { background: #27ca40; }
-
-    .app-preview {
-      height: calc(100% - 24px);
-      background: var(--bg-deep);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 32px;
-    }
-
-    .app-info {
-      padding: 14px;
-    }
-
-    .app-name {
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .app-stats {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .app-stat {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .app-author {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-left: auto;
-    }
-
-    .author-avatar {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--gradient-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 600;
-    }
-
-    /* AGENT VIEW */
-    .agent-view {
-      display: flex;
-      height: 100%;
-      gap: 16px;
-    }
-
-    .agent-main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    .agent-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      margin-bottom: 16px;
-    }
-
-    .agent-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .agent-title h2 {
-      font-family: var(--font-heading);
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .mode-pills {
-      display: flex;
-      gap: 4px;
-      background: var(--bg-tertiary);
-      padding: 4px;
-      border-radius: var(--radius-md);
-    }
-
-    .mode-pill {
-      padding: 6px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      color: var(--text-secondary);
-    }
-
-    .mode-pill:hover { color: var(--text-primary); }
-    .mode-pill.active {
-      background: var(--accent-purple);
-      color: white;
-    }
-
-    .agent-timer {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 14px;
-      color: var(--accent-cyan);
-    }
-
-    /* Chat Area */
-    .agent-chat {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .chat-message {
-      display: flex;
-      gap: 12px;
-      max-width: 90%;
-    }
-
-    .chat-message.user {
-      flex-direction: row-reverse;
-      margin-left: auto;
-    }
-
-    .message-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 14px;
-    }
-
-    .message-avatar.ai {
-      background: var(--gradient-main);
-    }
-
-    .message-avatar.user {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-    }
-
-    .message-bubble {
-      padding: 12px 16px;
-      border-radius: var(--radius-lg);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .chat-message.ai .message-bubble {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-    }
-
-    .chat-message.user .message-bubble {
-      background: var(--accent-purple);
-      color: white;
-    }
-
-    .code-block {
-      background: var(--bg-deep);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      overflow-x: auto;
-      margin-top: 8px;
-    }
-
-    /* Plan Steps */
-    .plan-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .plan-step {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      background: var(--bg-deep);
-      border-radius: var(--radius-md);
-      font-size: 13px;
-    }
-
-    .step-number {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .step-number.done {
-      background: var(--accent-green);
-      color: white;
-    }
-
-    .step-number.running {
-      background: var(--accent-amber);
-      color: white;
-      animation: pulse 1s infinite;
-    }
-
-    .step-number.waiting {
-      background: var(--bg-tertiary);
-      color: var(--text-muted);
-    }
-
-    .step-text { flex: 1; }
-
-    .step-status {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 10px;
-    }
-
-    .step-status.done { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
-    .step-status.running { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
-
-    /* Chat Input */
-    .chat-input-container {
-      padding: 16px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 12px;
-    }
-
-    .chat-input {
-      flex: 1;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px 16px;
-      font-size: 14px;
-      color: var(--text-primary);
-      outline: none;
-      font-family: inherit;
-      resize: none;
-      min-height: 44px;
-      max-height: 120px;
-    }
-
-    .chat-input:focus {
-      border-color: var(--accent-purple);
-    }
-
-    .chat-send-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      background: var(--gradient-main);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      border: none;
-    }
-
-    .chat-send-btn:hover {
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-    }
-
-    .chat-send-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* Right Panel */
-    .agent-panel {
-      width: 320px;
-      min-width: 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .panel-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-    }
-
-    .panel-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
-    }
-
-    .mode-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .mode-card {
-      padding: 12px;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .mode-card:hover { border-color: var(--border-light); }
-    .mode-card.active {
-      border-color: var(--accent-purple);
-      background: rgba(124, 58, 237, 0.1);
-    }
-
-    .mode-card-title {
-      font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-
-    .mode-card-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .run-stats {
-      display: flex;
-      gap: 16px;
-    }
-
-    .run-stat {
-      text-align: center;
-    }
-
-    .run-stat-value {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--accent-cyan);
-      font-family: var(--font-mono);
-    }
-
-    .run-stat-label {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .checkpoint {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .checkpoint:last-child { border-bottom: none; }
-
-    .checkpoint-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-green);
-    }
-
-    .checkpoint-name {
-      flex: 1;
-      font-size: 13px;
-    }
-
-    .checkpoint-badge {
-      font-size: 10px;
-      padding: 2px 8px;
-      background: rgba(34, 197, 94, 0.2);
-      color: var(--accent-green);
-      border-radius: 10px;
-      font-weight: 600;
-    }
-
-    .agent-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .agent-toggle:last-child { border-bottom: none; }
-
-    .agent-toggle-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .agent-toggle-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: var(--radius-md);
-      background: var(--bg-tertiary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .agent-toggle-name {
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .agent-toggle-status {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .toggle-switch {
-      width: 40px;
-      height: 22px;
-      background: var(--bg-tertiary);
-      border-radius: 11px;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .toggle-switch.active {
-      background: var(--accent-purple);
-    }
-
-    .toggle-switch::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 18px;
-      height: 18px;
-      background: white;
-      border-radius: 50%;
-      transition: all 0.2s ease;
-    }
-
-    .toggle-switch.active::after {
-      left: 20px;
-    }
-
-    /* Toast Notifications */
-    .toast-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      z-index: 10000;
-    }
-
-    .toast {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 18px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 13px;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(100px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    .toast.success { border-color: var(--accent-green); }
-    .toast.error { border-color: var(--accent-red); }
-    .toast.info { border-color: var(--accent-cyan); }
-
-    .toast-icon {
-      font-size: 16px;
-    }
-
-    .toast.success .toast-icon { color: var(--accent-green); }
-    .toast.error .toast-icon { color: var(--accent-red); }
-    .toast.info .toast-icon { color: var(--accent-cyan); }
+    .project-preview { height: calc(100% - 20px); background: var(--bg-deep); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--text-muted); }
+    .project-info { padding: 16px; }
+    .project-name { font-weight: 600; font-size: 14px; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .project-meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--text-muted); }
+    .project-stat { display: flex; align-items: center; gap: 4px; }
+    .project-author { margin-left: auto; }
+    .author-avatar { width: 20px; height: 20px; border-radius: 50%; background: var(--gradient-main); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+
+    /* Create New Card */
+    .create-card {
+      background: var(--bg-secondary); border: 2px dashed var(--border); border-radius: var(--radius-lg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .create-card:hover { border-color: var(--accent-cyan); background: var(--bg-tertiary); }
+    .create-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-tertiary); border: 2px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--accent-cyan); margin-bottom: 12px; }
+    .create-text { font-weight: 600; color: var(--accent-cyan); }
 
     /* Modal */
     .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.2s ease;
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+      opacity: 0; visibility: hidden; transition: all 0.2s ease;
     }
-
-    .modal-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-
+    .modal-overlay.open { opacity: 1; visibility: visible; }
     .modal {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 24px;
-      max-width: 500px;
-      width: 90%;
-      transform: scale(0.9);
-      transition: transform 0.2s ease;
+      background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 28px;
+      max-width: 520px; width: 90%; transform: scale(0.9); transition: transform 0.2s ease;
     }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .modal-title { font-family: var(--font-heading); font-size: 22px; font-weight: 700; }
+    .modal-close { width: 32px; height: 32px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; transition: all 0.15s ease; background: transparent; border: none; font-size: 18px; }
+    .modal-close:hover { background: var(--bg-hover); color: var(--text-primary); }
 
-    .modal-overlay.open .modal {
-      transform: scale(1);
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .modal-title {
-      font-family: var(--font-heading);
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .modal-close {
-      width: 32px;
-      height: 32px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      background: transparent;
-      border: none;
-    }
-
-    .modal-close:hover {
-      background: var(--bg-hover);
-      color: var(--text-primary);
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 8px;
-      color: var(--text-secondary);
-    }
-
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--text-secondary); }
     .form-input {
-      width: 100%;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px 16px;
-      font-size: 14px;
-      color: var(--text-primary);
-      outline: none;
-      font-family: inherit;
+      width: 100%; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 14px 16px; font-size: 14px; color: var(--text-primary); outline: none; font-family: inherit;
     }
+    .form-input:focus { border-color: var(--accent-purple); }
+    .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
 
-    .form-input:focus {
-      border-color: var(--accent-purple);
+    .template-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .template-option {
+      padding: 16px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.15s ease; text-align: center;
     }
+    .template-option:hover { border-color: var(--border-light); }
+    .template-option.selected { border-color: var(--accent-purple); background: rgba(124, 58, 237, 0.1); }
+    .template-icon { font-size: 24px; margin-bottom: 8px; }
+    .template-name { font-size: 12px; font-weight: 500; }
 
-    .model-options {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .modal-actions { display: flex; gap: 12px; margin-top: 24px; }
+    .modal-actions .btn { flex: 1; }
+
+    /* Toast */
+    .toast-container { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 8px; z-index: 10000; }
+    .toast {
+      display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: var(--radius-md); font-size: 13px; animation: slideIn 0.3s ease; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
-
-    .model-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .model-option:hover {
-      border-color: var(--border-light);
-    }
-
-    .model-option.selected {
-      border-color: var(--accent-purple);
-      background: rgba(124, 58, 237, 0.1);
-    }
-
-    .model-option-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: var(--radius-md);
-      background: var(--gradient-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
-    .model-option-info {
-      flex: 1;
-    }
-
-    .model-option-name {
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .model-option-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* Keyboard Shortcuts */
-    .kbd {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 24px;
-      height: 24px;
-      padding: 0 8px;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-size: 11px;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-    }
-
-    /* Loading */
-    .typing-indicator {
-      display: flex;
-      gap: 4px;
-      padding: 8px;
-    }
-
-    .typing-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent-cyan);
-      border-radius: 50%;
-      animation: bounce 1.4s infinite ease-in-out;
-    }
-
-    .typing-dot:nth-child(1) { animation-delay: 0s; }
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes bounce {
-      0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
-      40% { transform: scale(1); opacity: 1; }
-    }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
+    .toast.success { border-color: var(--accent-green); }
+    .toast.error { border-color: var(--accent-red); }
+    .toast-icon { font-size: 16px; }
+    .toast.success .toast-icon { color: var(--accent-green); }
+    .toast.error .toast-icon { color: var(--accent-red); }
 
     /* View transitions */
-    .view {
-      display: none;
-      height: 100%;
-    }
-
-    .view.active {
-      display: flex;
-      flex-direction: column;
-    }
+    .view { display: none; height: 100%; }
+    .view.active { display: flex; flex-direction: column; }
 
     /* Responsive */
-    @media (max-width: 1200px) {
-      .agent-panel { display: none; }
-    }
-
+    @media (max-width: 1200px) { .sidebar { width: 220px; min-width: 220px; } }
     @media (max-width: 768px) {
       .sidebar { display: none; }
-      .icon-nav { display: none; }
-      .hero-title { font-size: 36px; }
-      .app-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .hero-title { font-size: 32px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1364,104 +301,83 @@
     <!-- Left Icon Nav -->
     <nav class="icon-nav">
       <div class="nav-icon active" data-view="home" title="Home">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       </div>
-      <div class="nav-icon" data-view="agent" title="Agent">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-        </svg>
+      <div class="nav-icon" data-view="agent" title="AI Agent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
       </div>
-      <div class="nav-icon" title="Files">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-        </svg>
+      <div class="nav-icon" data-view="deploy" title="Deploy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
       </div>
-      <div class="nav-icon" title="Chat">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
+      <div class="nav-icon" data-view="collaborate" title="Collaborate">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </div>
+      <div class="nav-icon" data-view="packages" title="Packages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
       </div>
       <div class="nav-divider"></div>
-      <div class="nav-icon" title="Settings" id="settingsBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-        </svg>
+      <div class="nav-icon" data-view="settings" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
       </div>
       <div class="nav-bottom">
-        <div class="nav-icon" title="API Settings" id="apiSettingsBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-          </svg>
+        <div class="nav-icon" title="Help">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
         </div>
       </div>
     </nav>
 
-    <!-- Left Sidebar -->
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
-        <div class="workspace-switcher">
+        <div class="workspace-switcher" id="workspaceSwitcher">
           <div class="workspace-icon">M</div>
-          <span class="workspace-name">Maddy Workspace</span>
+          <div class="workspace-info">
+            <span class="workspace-name">Maddy OS</span>
+            <span class="workspace-plan">Pro Plan</span>
+          </div>
           <span class="workspace-arrow">v</span>
         </div>
       </div>
 
       <nav class="sidebar-nav">
-        <div class="nav-item active">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polygon points="10 8 16 12 10 16 10 8"></polygon>
-          </svg>
+        <div class="nav-item active" data-view="home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
           Discover
         </div>
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-          </svg>
-          My Apps
+        <div class="nav-item" data-view="projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          My Projects
+          <span class="nav-item-badge">5</span>
         </div>
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-          </svg>
+        <div class="nav-item" data-view="templates">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
           Templates
         </div>
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
+        <div class="nav-item" data-view="community">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           Community
         </div>
-      </nav>
 
-      <div class="sidebar-section-title">Recent</div>
-      <nav class="sidebar-nav">
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          </svg>
-          CRM Dashboard
+        <div class="nav-section-title">Tools</div>
+        <div class="nav-item" data-view="deploy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          Deployments
         </div>
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          </svg>
-          Booking App
+        <div class="nav-item" data-view="packages">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+          Packages
         </div>
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          </svg>
-          Portfolio Site
+        <div class="nav-item" data-view="actions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Actions (CI/CD)
+        </div>
+        <div class="nav-item" data-view="security">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Security
+        </div>
+        <div class="nav-item" data-view="analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          Analytics
         </div>
       </nav>
     </aside>
@@ -1471,16 +387,18 @@
       <!-- Top Bar -->
       <header class="top-bar">
         <div class="breadcrumb">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
           <span>/</span>
-          <span class="breadcrumb-current">Workspace</span>
+          <span class="breadcrumb-current">Discover</span>
+        </div>
+        <div class="top-bar-center">
+          <div class="top-tab active">Discover</div>
+          <div class="top-tab">Search</div>
         </div>
         <div class="top-bar-right">
-          <button class="btn btn-ghost">Invite</button>
+          <button class="btn btn-ghost">+ Invite</button>
           <div class="credits-pill">500 Credits</div>
-          <button class="btn btn-gradient" id="newAgentBtn">+ New Agent</button>
+          <button class="btn btn-gradient" id="newProjectBtn">+ New Project</button>
           <div class="user-avatar">M</div>
         </div>
       </header>
@@ -1488,212 +406,162 @@
       <div class="content">
         <!-- HOME VIEW -->
         <div class="view active" id="homeView">
-          <div class="home-view">
-            <div class="hero">
-              <div class="announcement-pill">
-                <span class="announcement-dot"></span>
-                Maddy AI 4.0 is now live
-              </div>
-              <h1 class="hero-title">Build Any App with AI.<br>Just describe it.</h1>
-              <p class="hero-subtitle">Create production-ready applications in seconds. No coding required.</p>
+          <div class="welcome-hero">
+            <div class="announcement-pill">
+              <span class="announcement-dot"></span>
+              Maddy AI OS 4.0 is now live - Build anything instantly
             </div>
-
-            <div class="input-container">
-              <div class="main-input-wrapper">
-                <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.35-4.35"></path>
-                </svg>
-                <input type="text" class="main-input" placeholder="Describe what you want to build..." id="mainInput">
-                <div class="input-actions">
-                  <button class="input-action-btn" title="Sparkle">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
-                  </button>
-                  <button class="input-action-btn" title="Attach">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-                    </svg>
-                  </button>
-                  <button class="input-action-btn send" title="Send" id="sendBtn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="22" y1="2" x2="11" y2="13"></line>
-                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="quick-actions">
-              <div class="quick-action-chip" data-prompt="Build a CRM app">CRM App</div>
-              <div class="quick-action-chip" data-prompt="Create a SaaS landing page">SaaS Page</div>
-              <div class="quick-action-chip" data-prompt="Build a podcast player">Podcast</div>
-              <div class="quick-action-chip" data-prompt="Create an HR dashboard">HR Dashboard</div>
-              <div class="quick-action-chip" data-prompt="Build a QR code generator">QR Studio</div>
-              <div class="quick-action-chip" data-prompt="Create a booking system">Booking App</div>
-              <div class="quick-action-chip" data-prompt="Build a time tracker">Time Tracker</div>
-              <div class="quick-action-chip" data-prompt="Create an online store">Store</div>
-            </div>
-
-            <div class="integrations">
-              <div class="integration-icon" title="Gmail">G</div>
-              <div class="integration-icon" title="Slack">S</div>
-              <div class="integration-icon" title="Calendar">C</div>
-              <div class="integration-icon" title="Sheets">Sh</div>
-              <div class="integration-icon" title="GitHub">Gh</div>
-              <div class="integration-icon" title="WhatsApp">W</div>
-              <div class="integration-icon" title="YouTube">Yt</div>
-            </div>
-
-            <div class="category-tabs">
-              <button class="category-tab active" data-category="all">All</button>
-              <button class="category-tab" data-category="featured">Featured</button>
-              <button class="category-tab" data-category="new">New</button>
-              <button class="category-tab" data-category="quick">Quick Apps</button>
-              <button class="category-tab" data-category="ai">AI Agents</button>
-              <button class="category-tab" data-category="websites">Websites</button>
-            </div>
-
-            <div class="app-grid" id="appGrid"></div>
+            <h1 class="hero-title">Build Anything.<br>Deploy Everywhere.</h1>
+            <p class="hero-subtitle">The complete GitHub + Replit + Kilo alternative. Code, deploy, and collaborate - all in one place. No setup required.</p>
           </div>
-        </div>
 
-        <!-- AGENT VIEW -->
-        <div class="view" id="agentView">
-          <div class="agent-view">
-            <div class="agent-main">
-              <div class="agent-header">
-                <div class="agent-title">
-                  <h2>Maddy Agent</h2>
-                  <div class="mode-pills">
-                    <div class="mode-pill active" data-mode="auto">AUTO</div>
-                    <div class="mode-pill" data-mode="plan">PLAN</div>
-                    <div class="mode-pill" data-mode="step">STEP</div>
-                    <div class="mode-pill" data-mode="local">LOCAL</div>
-                  </div>
-                </div>
-                <div class="agent-timer">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                  <span id="runTimer">00:00</span>
-                </div>
-              </div>
-
-              <div class="agent-chat">
-                <div class="chat-messages" id="chatMessages">
-                  <div class="chat-message ai">
-                    <div class="message-avatar ai">M</div>
-                    <div class="message-bubble">
-                      Namaste! Main Maddy AI hoon. Batao, aap kya build karna chahte ho?
-                      <div class="plan-steps">
-                        <div class="plan-step">
-                          <span class="step-number waiting">1</span>
-                          <span class="step-text">Waiting for your input...</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="chat-input-container">
-                  <textarea class="chat-input" placeholder="Describe what you want to build..." id="chatInput"></textarea>
-                  <button class="chat-send-btn" id="chatSendBtn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="22" y1="2" x2="11" y2="13"></line>
-                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                    </svg>
-                  </button>
-                </div>
+          <div class="input-container">
+            <div class="main-input-wrapper">
+              <svg class="input-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+              <input type="text" class="main-input" placeholder="Describe what you want to build..." id="mainInput">
+              <div class="input-actions">
+                <button class="input-action-btn" title="AI Generate">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </button>
+                <button class="input-action-btn" title="Attach">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                </button>
+                <button class="input-action-btn send" title="Create" id="createBtn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
               </div>
             </div>
+          </div>
 
-            <div class="agent-panel">
-              <div class="panel-card">
-                <div class="panel-title">Execution Mode</div>
-                <div class="mode-cards">
-                  <div class="mode-card active" data-exec="auto">
-                    <div class="mode-card-title">Auto</div>
-                    <div class="mode-card-desc">No interruptions</div>
-                  </div>
-                  <div class="mode-card" data-exec="plan">
-                    <div class="mode-card-title">Plan</div>
-                    <div class="mode-card-desc">Show steps</div>
-                  </div>
-                  <div class="mode-card" data-exec="step">
-                    <div class="mode-card-title">Step</div>
-                    <div class="mode-card-desc">Confirm each</div>
-                  </div>
-                  <div class="mode-card" data-exec="local">
-                    <div class="mode-card-title">Local</div>
-                    <div class="mode-card-desc">Offline mode</div>
+          <div class="quick-actions">
+            <div class="quick-action-chip" data-prompt="CRM Dashboard">CRM Dashboard</div>
+            <div class="quick-action-chip" data-prompt="SaaS Landing Page">SaaS Landing Page</div>
+            <div class="quick-action-chip" data-prompt="E-commerce Store">E-commerce Store</div>
+            <div class="quick-action-chip" data-prompt="Booking System">Booking System</div>
+            <div class="quick-action-chip" data-prompt="Social Media App">Social Media</div>
+            <div class="quick-action-chip" data-prompt="AI Chatbot">AI Chatbot</div>
+            <div class="quick-action-chip" data-prompt="Portfolio Website">Portfolio</div>
+            <div class="quick-action-chip" data-prompt="Time Tracking App">Time Tracker</div>
+          </div>
+
+          <div class="integrations">
+            <div class="integration-icon" title="GitHub">Gh</div>
+            <div class="integration-icon" title="GitLab">Gl</div>
+            <div class="integration-icon" title="Vercel">V</div>
+            <div class="integration-icon" title="Netlify">N</div>
+            <div class="integration-icon" title="AWS">AWS</div>
+            <div class="integration-icon" title="Firebase">Fb</div>
+            <div class="integration-icon" title="Supabase">Su</div>
+            <div class="integration-icon" title="Stripe">St</div>
+          </div>
+
+          <div class="features-section">
+            <div class="section-header">
+              <h2 class="section-title">Everything You Need</h2>
+              <span class="see-all">See all features</span>
+            </div>
+            <div class="feature-grid">
+              <div class="feature-card">
+                <div class="feature-icon">&#x1F4BB;</div>
+                <div class="feature-title">Cloud IDE</div>
+                <div class="feature-desc">Instant development environment in your browser. No setup needed.</div>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">&#x1F916;</div>
+                <div class="feature-title">AI Code Agent</div>
+                <div class="feature-desc">Build anything by describing it. AI writes the code for you.</div>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">&#x1F680;</div>
+                <div class="feature-title">One-Click Deploy</div>
+                <div class="feature-desc">Deploy to global edge network instantly. Free SSL included.</div>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">&#x1F465;</div>
+                <div class="feature-title">Real-time Collaboration</div>
+                <div class="feature-desc">Code together with your team. See changes live.</div>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">&#x1F6E0;</div>
+                <div class="feature-title">Custom Domains</div>
+                <div class="feature-desc">Connect your own domain. Free SSL certificates.</div>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">&#x1F512;</div>
+                <div class="feature-title">Secure by Default</div>
+                <div class="feature-desc">Enterprise-grade security. DDoS protection included.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="features-section">
+            <div class="section-header">
+              <h2 class="section-title">Start Building</h2>
+              <span class="see-all">Browse all templates</span>
+            </div>
+            <div class="projects-grid">
+              <div class="create-card" id="createProjectCard">
+                <div class="create-icon">+</div>
+                <div class="create-text">Create New Project</div>
+              </div>
+              <div class="project-card">
+                <div class="project-thumb">
+                  <div class="project-gradient" style="background: linear-gradient(135deg, #667eea, #764ba2)"></div>
+                  <div class="project-mac"><span class="mac-dot red"></span><span class="mac-dot yellow"></span><span class="mac-dot green"></span></div>
+                  <div class="project-preview">CRM</div>
+                </div>
+                <div class="project-info">
+                  <div class="project-name">CRM Dashboard</div>
+                  <div class="project-meta">
+                    <span class="project-stat">12 files</span>
+                    <span class="project-stat">45 forks</span>
+                    <div class="project-author"><div class="author-avatar">A</div></div>
                   </div>
                 </div>
               </div>
-
-              <div class="panel-card">
-                <div class="panel-title">Run Info</div>
-                <div class="run-stats">
-                  <div class="run-stat">
-                    <div class="run-stat-value" id="stepsCount">0</div>
-                    <div class="run-stat-label">Steps</div>
-                  </div>
-                  <div class="run-stat">
-                    <div class="run-stat-value" id="tokensUsed">0</div>
-                    <div class="run-stat-label">Tokens</div>
-                  </div>
-                  <div class="run-stat">
-                    <div class="run-stat-value" id="timeElapsed">0s</div>
-                    <div class="run-stat-label">Time</div>
+              <div class="project-card">
+                <div class="project-thumb">
+                  <div class="project-gradient" style="background: linear-gradient(135deg, #f093fb, #f5576c)"></div>
+                  <div class="project-mac"><span class="mac-dot red"></span><span class="mac-dot yellow"></span><span class="mac-dot green"></span></div>
+                  <div class="project-preview">SaaS</div>
+                </div>
+                <div class="project-info">
+                  <div class="project-name">SaaS Starter Kit</div>
+                  <div class="project-meta">
+                    <span class="project-stat">24 files</span>
+                    <span class="project-stat">128 forks</span>
+                    <div class="project-author"><div class="author-avatar">B</div></div>
                   </div>
                 </div>
               </div>
-
-              <div class="panel-card">
-                <div class="panel-title">Checkpoints</div>
-                <div id="checkpoints">
-                  <div class="checkpoint">
-                    <div class="checkpoint-dot"></div>
-                    <div class="checkpoint-name">Initial Setup</div>
-                    <div class="checkpoint-badge">SAVED</div>
+              <div class="project-card">
+                <div class="project-thumb">
+                  <div class="project-gradient" style="background: linear-gradient(135deg, #4facfe, #00f2fe)"></div>
+                  <div class="project-mac"><span class="mac-dot red"></span><span class="mac-dot yellow"></span><span class="mac-dot green"></span></div>
+                  <div class="project-preview">Shop</div>
+                </div>
+                <div class="project-info">
+                  <div class="project-name">E-commerce Store</div>
+                  <div class="project-meta">
+                    <span class="project-stat">31 files</span>
+                    <span class="project-stat">89 forks</span>
+                    <div class="project-author"><div class="author-avatar">C</div></div>
                   </div>
                 </div>
               </div>
-
-              <div class="panel-card">
-                <div class="panel-title">Active Agents</div>
-                <div class="agent-toggle">
-                  <div class="agent-toggle-info">
-                    <div class="agent-toggle-icon">C</div>
-                    <div>
-                      <div class="agent-toggle-name">Code Agent</div>
-                      <div class="agent-toggle-status">Writing code</div>
-                    </div>
-                  </div>
-                  <div class="toggle-switch active"></div>
+              <div class="project-card">
+                <div class="project-thumb">
+                  <div class="project-gradient" style="background: linear-gradient(135deg, #43e97b, #38f9d7)"></div>
+                  <div class="project-mac"><span class="mac-dot red"></span><span class="mac-dot yellow"></span><span class="mac-dot green"></span></div>
+                  <div class="project-preview">AI</div>
                 </div>
-                <div class="agent-toggle">
-                  <div class="agent-toggle-info">
-                    <div class="agent-toggle-icon">T</div>
-                    <div>
-                      <div class="agent-toggle-name">Task Agent</div>
-                      <div class="agent-toggle-status">Managing tasks</div>
-                    </div>
+                <div class="project-info">
+                  <div class="project-name">AI Chat App</div>
+                  <div class="project-meta">
+                    <span class="project-stat">8 files</span>
+                    <span class="project-stat">234 forks</span>
+                    <div class="project-author"><div class="author-avatar">D</div></div>
                   </div>
-                  <div class="toggle-switch active"></div>
-                </div>
-                <div class="agent-toggle">
-                  <div class="agent-toggle-info">
-                    <div class="agent-toggle-icon">D</div>
-                    <div>
-                      <div class="agent-toggle-name">Design Agent</div>
-                      <div class="agent-toggle-status">Idle</div>
-                    </div>
-                  </div>
-                  <div class="toggle-switch"></div>
                 </div>
               </div>
             </div>
@@ -1703,51 +571,59 @@
     </main>
   </div>
 
-  <!-- API Settings Modal -->
-  <div class="modal-overlay" id="apiModal">
+  <!-- Create Project Modal -->
+  <div class="modal-overlay" id="createModal">
     <div class="modal">
       <div class="modal-header">
-        <h3 class="modal-title">API Settings</h3>
-        <button class="modal-close" id="closeApiModal">x</button>
+        <h3 class="modal-title">Create New Project</h3>
+        <button class="modal-close" id="closeModal">x</button>
       </div>
+      
       <div class="form-group">
-        <label class="form-label">API Provider</label>
-        <select class="form-input" id="apiProvider">
-          <option value="anthropic">Anthropic (Claude)</option>
-          <option value="openrouter">OpenRouter</option>
-        </select>
+        <label class="form-label">Project Name</label>
+        <input type="text" class="form-input" id="projectName" placeholder="my-awesome-project">
       </div>
+      
       <div class="form-group">
-        <label class="form-label">API Key</label>
-        <input type="password" class="form-input" id="apiKey" placeholder="sk-ant-...">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Select Model</label>
-        <div class="model-options" id="modelOptions">
-          <div class="model-option selected" data-model="claude-sonnet-4">
-            <div class="model-option-icon">C</div>
-            <div class="model-option-info">
-              <div class="model-option-name">Claude Sonnet 4</div>
-              <div class="model-option-desc">Best balance of speed and quality</div>
-            </div>
+        <label class="form-label">Choose a Template</label>
+        <div class="template-grid">
+          <div class="template-option selected" data-template="blank">
+            <div class="template-icon">&#x1F4C4;</div>
+            <div class="template-name">Blank</div>
           </div>
-          <div class="model-option" data-model="claude-opus-4">
-            <div class="model-option-icon">C</div>
-            <div class="model-option-info">
-              <div class="model-option-name">Claude Opus 4</div>
-              <div class="model-option-desc">Most powerful model</div>
-            </div>
+          <div class="template-option" data-template="nextjs">
+            <div class="template-icon">&#x26A1;</div>
+            <div class="template-name">Next.js</div>
           </div>
-          <div class="model-option" data-model="claude-haiku">
-            <div class="model-option-icon">C</div>
-            <div class="model-option-info">
-              <div class="model-option-name">Claude Haiku</div>
-              <div class="model-option-desc">Fastest response</div>
-            </div>
+          <div class="template-option" data-template="react">
+            <div class="template-icon">&#x1F4C2;</div>
+            <div class="template-name">React</div>
+          </div>
+          <div class="template-option" data-template="node">
+            <div class="template-icon">&#x1F4BB;</div>
+            <div class="template-name">Node.js</div>
+          </div>
+          <div class="template-option" data-template="python">
+            <div class="template-icon">&#x1F40D;</div>
+            <div class="template-name">Python</div>
+          </div>
+          <div class="template-option" data-template="ai">
+            <div class="template-icon">&#x1F916;</div>
+            <div class="template-name">AI App</div>
           </div>
         </div>
       </div>
-      <button class="btn btn-gradient" style="width: 100%; margin-top: 16px;" id="saveApiBtn">Save Settings</button>
+      
+      <div class="form-group">
+        <label class="form-label">Description (optional)</label>
+        <input type="text" class="form-input" id="projectDesc" placeholder="What does this project do?">
+        <div class="form-hint">Leave blank and let AI generate it for you</div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="cancelBtn">Cancel</button>
+        <button class="btn btn-gradient" id="createBtn2">Create Project</button>
+      </div>
     </div>
   </div>
 
@@ -1757,407 +633,150 @@
   <script>
     // State
     const state = {
+      projects: JSON.parse(localStorage.getItem('maddyProjects')) || [
+        { id: 1, name: 'CRM Dashboard', template: 'react', gradient: 'linear-gradient(135deg, #667eea, #764ba2)', files: 12, forks: 45, author: 'A' },
+        { id: 2, name: 'SaaS Starter', template: 'nextjs', gradient: 'linear-gradient(135deg, #f093fb, #f5576c)', files: 24, forks: 128, author: 'B' },
+        { id: 3, name: 'E-commerce', template: 'nextjs', gradient: 'linear-gradient(135deg, #4facfe, #00f2fe)', files: 31, forks: 89, author: 'C' },
+        { id: 4, name: 'AI Chat', template: 'ai', gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)', files: 8, forks: 234, author: 'D' },
+      ],
       currentView: 'home',
-      currentCategory: 'all',
-      currentMode: 'auto',
-      executionMode: 'auto',
-      apiProvider: localStorage.getItem('apiProvider') || 'anthropic',
-      apiKey: localStorage.getItem('apiKey') || '',
-      selectedModel: localStorage.getItem('selectedModel') || 'claude-sonnet-4',
-      isTyping: false,
-      chatHistory: [],
-      steps: 0,
-      tokens: 0,
-      timerInterval: null,
-      timerSeconds: 0
+      selectedTemplate: 'blank'
     };
-
-    // App data
-    const apps = [
-      { name: 'CRM Dashboard', category: 'featured', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', files: 12, forks: 45, author: 'A' },
-      { name: 'SaaS Landing', category: 'featured', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', files: 8, forks: 23, author: 'B' },
-      { name: 'Booking System', category: 'new', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', files: 15, forks: 67, author: 'C' },
-      { name: 'Portfolio Site', category: 'websites', gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', files: 6, forks: 12, author: 'D' },
-      { name: 'Time Tracker', category: 'quick', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', files: 9, forks: 34, author: 'E' },
-      { name: 'QR Generator', category: 'quick', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', files: 4, forks: 8, author: 'F' },
-      { name: 'AI Chat App', category: 'ai', gradient: 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)', files: 11, forks: 89, author: 'G' },
-      { name: 'E-commerce Store', category: 'featured', gradient: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)', files: 22, forks: 156, author: 'H' },
-      { name: 'HR Dashboard', category: 'ai', gradient: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)', files: 18, forks: 45, author: 'I' },
-      { name: 'Podcast Player', category: 'new', gradient: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)', files: 7, forks: 19, author: 'J' },
-      { name: 'Social Media App', category: 'websites', gradient: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', files: 14, forks: 78, author: 'K' },
-      { name: 'Analytics Dashboard', category: 'featured', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', files: 16, forks: 92, author: 'L' }
-    ];
 
     // Initialize
     function init() {
-      renderAppGrid();
       setupEventListeners();
-      loadSettings();
-    }
-
-    // Render app grid
-    function renderAppGrid() {
-      const grid = document.getElementById('appGrid');
-      const filtered = state.currentCategory === 'all' 
-        ? apps 
-        : apps.filter(app => app.category === state.currentCategory);
-      
-      grid.innerHTML = filtered.map((app, i) => `
-        <div class="app-card" style="animation-delay: ${i * 0.05}s">
-          <div class="app-thumbnail">
-            <div class="app-thumbnail-gradient" style="background: ${app.gradient}"></div>
-            <div class="app-mac-chrome">
-              <span class="mac-dot red"></span>
-              <span class="mac-dot yellow"></span>
-              <span class="mac-dot green"></span>
-            </div>
-            <div class="app-preview">${app.name[0]}</div>
-          </div>
-          <div class="app-info">
-            <div class="app-name">${app.name}</div>
-            <div class="app-stats">
-              <span class="app-stat">${app.files} files</span>
-              <span class="app-stat">${app.forks} forks</span>
-              <div class="app-author">
-                <div class="author-avatar">${app.author}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `).join('');
+      renderProjects();
     }
 
     // Setup event listeners
     function setupEventListeners() {
-      // Nav icons
-      document.querySelectorAll('.nav-icon[data-view]').forEach(icon => {
-        icon.addEventListener('click', () => {
-          const view = icon.dataset.view;
+      // Navigation
+      document.querySelectorAll('.nav-icon[data-view], .nav-item[data-view]').forEach(el => {
+        el.addEventListener('click', () => {
+          const view = el.dataset.view;
           switchView(view);
-        });
-      });
-
-      // Category tabs
-      document.querySelectorAll('.category-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          state.currentCategory = tab.dataset.category;
-          renderAppGrid();
         });
       });
 
       // Quick actions
       document.querySelectorAll('.quick-action-chip').forEach(chip => {
         chip.addEventListener('click', () => {
-          const prompt = chip.dataset.prompt;
-          document.getElementById('mainInput').value = prompt;
-          switchView('agent');
-          document.getElementById('chatInput').value = prompt;
+          document.getElementById('projectName').value = chip.dataset.prompt;
+          openModal();
         });
       });
 
-      // Mode pills
-      document.querySelectorAll('.mode-pill').forEach(pill => {
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('.mode-pill').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-          state.currentMode = pill.dataset.mode;
+      // Create buttons
+      document.getElementById('newProjectBtn').addEventListener('click', openModal);
+      document.getElementById('createProjectCard').addEventListener('click', openModal);
+      document.getElementById('createBtn').addEventListener('click', openModal);
+      document.getElementById('closeModal').addEventListener('click', closeModal);
+      document.getElementById('cancelBtn').addEventListener('click', closeModal);
+      document.getElementById('createModal').addEventListener('click', (e) => {
+        if (e.target.id === 'createModal') closeModal();
+      });
+
+      // Template selection
+      document.querySelectorAll('.template-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.template-option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+          state.selectedTemplate = opt.dataset.template;
         });
       });
 
-      // Execution mode cards
-      document.querySelectorAll('.mode-card').forEach(card => {
-        card.addEventListener('click', () => {
-          document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
-          card.classList.add('active');
-          state.executionMode = card.dataset.exec;
-        });
-      });
-
-      // Toggle switches
-      document.querySelectorAll('.toggle-switch').forEach(toggle => {
-        toggle.addEventListener('click', () => {
-          toggle.classList.toggle('active');
-        });
-      });
-
-      // Main input send
-      document.getElementById('sendBtn').addEventListener('click', () => {
-        const input = document.getElementById('mainInput').value;
-        if (input.trim()) {
-          switchView('agent');
-          document.getElementById('chatInput').value = input;
-        }
-      });
-
-      // Chat send
-      document.getElementById('chatSendBtn').addEventListener('click', sendChatMessage);
-      document.getElementById('chatInput').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          sendChatMessage();
-        }
-      });
+      // Create project
+      document.getElementById('createBtn2').addEventListener('click', createProject);
 
       // Main input enter
       document.getElementById('mainInput').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          document.getElementById('sendBtn').click();
-        }
-      });
-
-      // API Modal
-      document.getElementById('apiSettingsBtn').addEventListener('click', () => {
-        document.getElementById('apiModal').classList.add('open');
-      });
-
-      document.getElementById('closeApiModal').addEventListener('click', () => {
-        document.getElementById('apiModal').classList.remove('open');
-      });
-
-      document.getElementById('apiModal').addEventListener('click', (e) => {
-        if (e.target.id === 'apiModal') {
-          document.getElementById('apiModal').classList.remove('open');
-        }
-      });
-
-      // Model options
-      document.querySelectorAll('.model-option').forEach(option => {
-        option.addEventListener('click', () => {
-          document.querySelectorAll('.model-option').forEach(o => o.classList.remove('selected'));
-          option.classList.add('selected');
-          state.selectedModel = option.dataset.model;
-        });
-      });
-
-      // Save API
-      document.getElementById('saveApiBtn').addEventListener('click', () => {
-        state.apiProvider = document.getElementById('apiProvider').value;
-        state.apiKey = document.getElementById('apiKey').value;
-        localStorage.setItem('apiProvider', state.apiProvider);
-        localStorage.setItem('apiKey', state.apiKey);
-        localStorage.setItem('selectedModel', state.selectedModel);
-        document.getElementById('apiModal').classList.remove('open');
-        showToast('API settings saved', 'success');
+        if (e.key === 'Enter') openModal();
       });
 
       // Keyboard shortcuts
       document.addEventListener('keydown', (e) => {
-        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-          e.preventDefault();
-          document.getElementById('mainInput').focus();
-        }
         if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
           e.preventDefault();
-          switchView('agent');
+          openModal();
         }
-        if (e.key === 'Escape') {
-          document.getElementById('apiModal').classList.remove('open');
-        }
-      });
-
-      // Settings button
-      document.getElementById('settingsBtn').addEventListener('click', () => {
-        document.getElementById('apiModal').classList.add('open');
+        if (e.key === 'Escape') closeModal();
       });
     }
 
     // Switch view
     function switchView(view) {
       state.currentView = view;
-      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-      document.getElementById(view + 'View').classList.add('active');
-      
-      document.querySelectorAll('.nav-icon').forEach(icon => {
-        icon.classList.remove('active');
-        if (icon.dataset.view === view) {
-          icon.classList.add('active');
-        }
+      document.querySelectorAll('.nav-icon[data-view], .nav-item[data-view]').forEach(el => {
+        el.classList.toggle('active', el.dataset.view === view);
       });
-
-      if (view === 'agent' && !state.timerInterval) {
-        startTimer();
-      }
+      showToast(`Switched to ${view} view`, 'info');
     }
 
-    // Timer
-    function startTimer() {
-      state.timerInterval = setInterval(() => {
-        state.timerSeconds++;
-        const mins = Math.floor(state.timerSeconds / 60).toString().padStart(2, '0');
-        const secs = (state.timerSeconds % 60).toString().padStart(2, '0');
-        document.getElementById('runTimer').textContent = `${mins}:${secs}`;
-        document.getElementById('timeElapsed').textContent = `${state.timerSeconds}s`;
-      }, 1000);
+    // Render projects
+    function renderProjects() {
+      // Projects are rendered statically in HTML for now
     }
 
-    // Send chat message
-    async function sendChatMessage() {
-      const input = document.getElementById('chatInput');
-      const message = input.value.trim();
-      if (!message || state.isTyping) return;
+    // Modal functions
+    function openModal() {
+      document.getElementById('createModal').classList.add('open');
+      document.getElementById('projectName').focus();
+    }
 
-      // Add user message
-      addMessage('user', message);
-      input.value = '';
-      state.isTyping = true;
+    function closeModal() {
+      document.getElementById('createModal').classList.remove('open');
+    }
 
-      // Show typing
-      showTyping();
-
-      // If no API key, use simulated response
-      if (!state.apiKey) {
-        setTimeout(() => {
-          removeTyping();
-          const response = generateResponse(message);
-          addMessage('ai', response);
-          state.isTyping = false;
-          state.steps++;
-          document.getElementById('stepsCount').textContent = state.steps;
-          state.tokens += Math.floor(message.length / 4);
-          document.getElementById('tokensUsed').textContent = state.tokens;
-        }, 1500);
+    // Create project
+    function createProject() {
+      const name = document.getElementById('projectName').value.trim();
+      const desc = document.getElementById('projectDesc').value.trim() || `A ${state.selectedTemplate} project`;
+      
+      if (!name) {
+        showToast('Please enter a project name', 'error');
         return;
       }
 
-      // Call API
-      try {
-        const response = await callAPI(message);
-        removeTyping();
-        addMessage('ai', response);
-      } catch (error) {
-        removeTyping();
-        addMessage('ai', 'Sorry, there was an error calling the API. Please check your API key.');
-        showToast('API Error: ' + error.message, 'error');
-      }
-
-      state.isTyping = false;
-      state.steps++;
-      document.getElementById('stepsCount').textContent = state.steps;
-    }
-
-    // Call Claude API
-    async function callAPI(message) {
-      const modelMap = {
-        'claude-sonnet-4': 'claude-sonnet-4-20250514',
-        'claude-opus-4': 'claude-opus-4-20250514',
-        'claude-haiku': 'claude-haiku-3-20240307'
-      };
-
-      const endpoint = state.apiProvider === 'anthropic'
-        ? 'https://api.anthropic.com/v1/messages'
-        : 'https://openrouter.ai/api/v1/chat/completions';
-
-      const headers = {
-        'Content-Type': 'application/json',
-        ...(state.apiProvider === 'anthropic' ? {
-          'x-api-key': state.apiKey,
-          'anthropic-version': '2023-06-01'
-        } : {
-          'Authorization': `Bearer ${state.apiKey}`
-        })
-      };
-
-      const body = state.apiProvider === 'anthropic' ? {
-        model: modelMap[state.selectedModel],
-        max_tokens: 1024,
-        messages: [{ role: 'user', content: message }]
-      } : {
-        model: state.selectedModel,
-        messages: [{ role: 'user', content: message }]
-      };
-
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body)
-      });
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      return state.apiProvider === 'anthropic'
-        ? data.content[0].text
-        : data.choices[0].message.content;
-    }
-
-    // Generate simulated response (Hinglish)
-    function generateResponse(prompt) {
-      const responses = [
-        `Great idea! Main abhi ${prompt} build karta hoon.\n\nStep 1: Project structure create kar raha hoon...\n\nCode generate ho gaya!`,
-        `Perfect! ${prompt} ke liye main ek complete solution create karta hoon.\n\nImplementation:\n\`\`\`javascript\n// Your app code here\n\`\`\`\n\nYe code ready hai!`,
-        `Batao! ${prompt} ke liye main design kar raha hoon.\n\nUI elements ready hain. Ab functionality add karta hoon.`,
-        `Awesome! ${prompt} build karne ke liye maine ek plan banaya hai:\n1. Setup project\n2. Create components\n3. Add styling\n4. Test and deploy\n\nSab ready hai!`
+      const gradients = [
+        'linear-gradient(135deg, #667eea, #764ba2)',
+        'linear-gradient(135deg, #f093fb, #f5576c)',
+        'linear-gradient(135deg, #4facfe, #00f2fe)',
+        'linear-gradient(135deg, #43e97b, #38f9d7)',
+        'linear-gradient(135deg, #fa709a, #fee140)',
+        'linear-gradient(135deg, #a8edea, #fed6e3)'
       ];
-      return responses[Math.floor(Math.random() * responses.length)];
+
+      const newProject = {
+        id: Date.now(),
+        name,
+        template: state.selectedTemplate,
+        gradient: gradients[Math.floor(Math.random() * gradients.length)],
+        files: Math.floor(Math.random() * 20) + 5,
+        forks: Math.floor(Math.random() * 50),
+        author: 'M'
+      };
+
+      state.projects.unshift(newProject);
+      localStorage.setItem('maddyProjects', JSON.stringify(state.projects));
+
+      closeModal();
+      showToast(`Project "${name}" created successfully!`, 'success');
+      
+      // Reset form
+      document.getElementById('projectName').value = '';
+      document.getElementById('projectDesc').value = '';
     }
 
-    // Add message to chat
-    function addMessage(role, content) {
-      const container = document.getElementById('chatMessages');
-      const div = document.createElement('div');
-      div.className = `chat-message ${role}`;
-      div.innerHTML = `
-        <div class="message-avatar ${role}">${role === 'ai' ? 'M' : 'U'}</div>
-        <div class="message-bubble">${content}</div>
-      `;
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
-    }
-
-    // Show typing indicator
-    function showTyping() {
-      const container = document.getElementById('chatMessages');
-      const div = document.createElement('div');
-      div.className = 'chat-message ai';
-      div.id = 'typingIndicator';
-      div.innerHTML = `
-        <div class="message-avatar ai">M</div>
-        <div class="message-bubble">
-          <div class="typing-indicator">
-            <span class="typing-dot"></span>
-            <span class="typing-dot"></span>
-            <span class="typing-dot"></span>
-          </div>
-        </div>
-      `;
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
-    }
-
-    // Remove typing indicator
-    function removeTyping() {
-      const typing = document.getElementById('typingIndicator');
-      if (typing) typing.remove();
-    }
-
-    // Show toast
+    // Toast
     function showToast(message, type = 'info') {
       const container = document.getElementById('toastContainer');
       const div = document.createElement('div');
       div.className = `toast ${type}`;
-      const icons = { success: '✓', error: '✗', info: 'ℹ' };
-      div.innerHTML = `
-        <span class="toast-icon">${icons[type]}</span>
-        <span>${message}</span>
-      `;
+      const icons = { success: '&#x2713;', error: '&#x2717;', info: '&#x2139;' };
+      div.innerHTML = `<span class="toast-icon">${icons[type]}</span><span>${message}</span>`;
       container.appendChild(div);
       setTimeout(() => div.remove(), 4000);
-    }
-
-    // Load settings
-    function loadSettings() {
-      if (state.apiKey) {
-        document.getElementById('apiProvider').value = state.apiProvider;
-        document.getElementById('apiKey').value = state.apiKey;
-        document.querySelectorAll('.model-option').forEach(o => {
-          o.classList.toggle('selected', o.dataset.model === state.selectedModel);
-        });
-      }
     }
 
     // Initialize app
